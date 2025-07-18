@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anass Riad - Elite Training Camp</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding: 1rem;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="%23ffffff08" points="0,0 1000,300 1000,1000 0,700"/></svg>');
+            background-size: cover;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            z-index: 1;
+            position: relative;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .hero-text h1 {
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #fff, #f0f0f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-text .subtitle {
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.2s both;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .champion-badge {
+            display: inline-block;
+            background: linear-gradient(45deg, #ffd700, #ffed4a);
+            color: #333;
+            padding: 0.7rem 1.5rem;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 1s ease-out 0.1s both;
+        }
+
+        .pain-points {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .pain-points h3 {
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            margin-bottom: 1rem;
+            color: #ffd700;
+        }
+
+        .pain-list {
+            list-style: none;
+            text-align: left;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .pain-list li {
+            padding: 0.5rem 0;
+            padding-left: 2rem;
+            position: relative;
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+        }
+
+        .pain-list li::before {
+            content: '❌';
+            position: absolute;
+            left: 0;
+            top: 0.5rem;
+        }
+
+        .solution-text {
+            background: rgba(76, 175, 80, 0.2);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            border-left: 4px solid #4caf50;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .solution-text h3 {
+            color: #4caf50;
+            margin-bottom: 0.5rem;
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+            color: white;
+            padding: 1.2rem 2.5rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+            animation: fadeInUp 1s ease-out 0.5s both;
+            margin-top: 1rem;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.4);
+        }
+
+        .training-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .method-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem 1rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .method-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .method-icon {
+            font-size: clamp(2rem, 5vw, 2.5rem);
+            margin-bottom: 0.5rem;
+        }
+
+        .method-card h4 {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            margin-bottom: 0.5rem;
+        }
+
+        .method-card p {
+            font-size: clamp(0.8rem, 2vw, 1rem);
+            opacity: 0.9;
+        }
+
+        .benefits {
+            padding: 3rem 1rem;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .benefits-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 5vw, 2.5rem);
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+
+        .persona-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .persona-section h3 {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            color: #667eea;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .persona-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .persona-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .persona-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .persona-icon {
+            font-size: clamp(3rem, 6vw, 4rem);
+            margin-bottom: 1rem;
+        }
+
+        .persona-card h4 {
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            margin-bottom: 1rem;
+        }
+
+        .persona-card p {
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .results-section {
+            background: #1a1a1a;
+            color: white;
+            padding: 3rem 1rem;
+        }
+
+        .results-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .result-stat {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .result-number {
+            font-size: clamp(2.5rem, 6vw, 3.5rem);
+            font-weight: bold;
+            color: #ffd700;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-text {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+        }
+
+        .timeline {
+            padding: 3rem 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .timeline-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .timeline-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            opacity: 0;
+            animation: slideIn 0.6s ease-out forwards;
+        }
+
+        .timeline-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .timeline-month {
+            background: linear-gradient(45deg, #ffd700, #ffed4a);
+            color: #333;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+        }
+
+        .timeline-title {
+            font-size: clamp(1.3rem, 3vw, 1.8rem);
+            font-weight: bold;
+        }
+
+        .timeline-content p {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .pricing {
+            padding: 3rem 1rem;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .pricing-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .price-card {
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            margin-top: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 3px solid #667eea;
+        }
+
+        .price-header {
+            margin-bottom: 2rem;
+        }
+
+        .price {
+            font-size: clamp(2.5rem, 6vw, 3.5rem);
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .price-subtitle {
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .value-proposition {
+            background: linear-gradient(45deg, #4caf50, #45a049);
+            color: white;
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            font-weight: bold;
+        }
+
+        .price-features {
+            text-align: left;
+            margin: 2rem 0;
+            list-style: none;
+        }
+
+        .price-features li {
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+            position: relative;
+            font-size: clamp(1rem, 2.5vw, 1.1rem);
+        }
+
+        .price-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #4ade80;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .guarantee {
+            background: linear-gradient(45deg, #ffd700, #ffed4a);
+            color: #333;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            font-weight: bold;
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+        }
+
+        .footer {
+            padding: 2rem 1rem;
+            background: #1a1a1a;
+            color: white;
+            text-align: center;
+        }
+
+        .footer p {
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Mobile-specific improvements */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 1rem;
+                min-height: 90vh;
+            }
+            
+            .hero-content {
+                padding: 0;
+            }
+            
+            .pain-points, .solution-text {
+                padding: 1.5rem;
+            }
+            
+            .training-methods {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .method-card {
+                padding: 1.5rem;
+            }
+            
+            .timeline-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .timeline-month {
+                align-self: center;
+            }
+            
+            .cta-button {
+                width: 100%;
+                max-width: 300px;
+                padding: 1.2rem;
+            }
+            
+            .price-card {
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        /* Touch-friendly improvements */
+        @media (hover: none) {
+            .cta-button:hover {
+                transform: none;
+            }
+            
+            .method-card:hover,
+            .persona-card:hover {
+                transform: none;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-grid">
+                <div class="hero-text">
+                    <div class="champion-badge">🏆 2x Moroccan Champion</div>
+                    <h1>Stop Struggling With Your Fitness</h1>
+                    <p class="subtitle">Join the only training camp that combines champion-level expertise with a holistic approach to transform your body and mind in just 4 months.</p>
+                    
+                    <div class="pain-points">
+                        <h3>Are You Tired Of...</h3>
+                        <ul class="pain-list">
+                            <li>Seeing no real progress despite working out</li>
+                            <li>Feeling overwhelmed by conflicting fitness advice</li>
+                            <li>Losing motivation after a few weeks</li>
+                            <li>Plateau in your performance</li>
+                            <li>Injuries from improper training</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="solution-text">
+                        <h3>✅ I Have The Solution</h3>
+                        <p>As a 2x Moroccan Champion, I've created a proven system that gets results. My holistic approach focuses on listening to your body, not just chasing numbers.</p>
+                    </div>
+                    
+                    <div class="training-methods">
+                        <div class="method-card">
+                            <div class="method-icon">🏃‍♂️</div>
+                            <h4>Endurance</h4>
+                            <p>Build lasting stamina</p>
+                        </div>
+                        <div class="method-card">
+                            <div class="method-icon">💥</div>
+                            <h4>Plyometrics</h4>
+                            <p>Explosive power</p>
+                        </div>
+                        <div class="method-card">
+                            <div class="method-icon">💪</div>
+                            <h4>Isometric</h4>
+                            <p>Controlled strength</p>
+                        </div>
+                    </div>
+                    
+                    <a href="#pricing" class="cta-button">Transform Your Body Today</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="benefits">
+        <div class="benefits-container">
+            <h2 class="section-title">Who Is This Perfect For?</h2>
+            
+            <div class="persona-section">
+                <h3>This Training Camp Is Designed For:</h3>
+                <div class="persona-grid">
+                    <div class="persona-card">
+                        <div class="persona-icon">🏃‍♀️</div>
+                        <h4>Busy Professionals</h4>
+                        <p>You want results but don't have time for complicated routines. My efficient methods fit into your schedule.</p>
+                    </div>
+                    <div class="persona-card">
+                        <div class="persona-icon">💪</div>
+                        <h4>Fitness Enthusiasts</h4>
+                        <p>You've hit a plateau and need expert guidance to break through to the next level of performance.</p>
+                    </div>
+                    <div class="persona-card">
+                        <div class="persona-icon">🎯</div>
+                        <h4>Goal-Oriented Athletes</h4>
+                        <p>Whether training for a marathon, competition, or personal milestone, you need a proven system.</p>
+                    </div>
+                    <div class="persona-card">
+                        <div class="persona-icon">🔄</div>
+                        <h4>Comeback Warriors</h4>
+                        <p>Recovering from injury or getting back into shape after a break. You need safe, effective progression.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="results-section">
+        <div class="results-container">
+            <h2 class="section-title">Real Results From Real People</h2>
+            <div class="results-grid">
+                <div class="result-stat">
+                    <div class="result-number">97%</div>
+                    <div class="result-text">Complete the Program</div>
+                </div>
+                <div class="result-stat">
+                    <div class="result-number">4-6</div>
+                    <div class="result-text">Weeks to See Results</div>
+                </div>
+                <div class="result-stat">
+                    <div class="result-number">85%</div>
+                    <div class="result-text">Continue Training After</div>
+                </div>
+                <div class="result-stat">
+                    <div class="result-number">100%</div>
+                    <div class="result-text">Personalized Approach</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="timeline">
+        <div class="timeline-container">
+            <h2 class="section-title">Your 4-Month Transformation</h2>
+            <div class="timeline-item">
+                <div class="timeline-header">
+                    <div class="timeline-month">Month 1</div>
+                    <div class="timeline-title">Foundation Building</div>
+                </div>
+                <div class="timeline-content">
+                    <p>Master proper form, build your base endurance, and learn to listen to your body. We start with fundamentals that create lasting change.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-header">
+                    <div class="timeline-month">Month 2</div>
+                    <div class="timeline-title">Power Development</div>
+                </div>
+                <div class="timeline-content">
+                    <p>Introduce explosive movements and plyometric training. Your coordination and agility will dramatically improve.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-header">
+                    <div class="timeline-month">Month 3</div>
+                    <div class="timeline-title">Peak Performance</div>
+                </div>
+                <div class="timeline-content">
+                    <p>Combine all training methods for maximum impact. This is where you'll surprise yourself with what you can achieve.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-header">
+                    <div class="timeline-month">Month 4</div>
+                    <div class="timeline-title">Lifestyle Integration</div>
+                </div>
+                <div class="timeline-content">
+                    <p>Create sustainable habits that last beyond the program. You'll have the knowledge and confidence to continue growing.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing" id="pricing">
+        <div class="pricing-container">
+            <h2 class="section-title">Ready to Transform Your Life?</h2>
+            <div class="price-card">
+                <div class="price-header">
+                    <div class="price">$497</div>
+                    <div class="price-subtitle">Complete 4-Month Training Camp</div>
+                    <div class="value-proposition">
+                        That's less than $31 per week for champion-level coaching!
+                    </div>
+                </div>
+                
+                <ul class="price-features">
+                    <li>16 weeks of personalized training programs</li>
+                    <li>Weekly one-on-one coaching calls</li>
+                    <li>Custom nutrition guidance for your lifestyle</li>
+                    <li>Complete exercise video library</li>
+                    <li>Progress tracking and regular assessments</li>
+                    <li>Direct WhatsApp access to Coach Anass</li>
+                    <li>Private community with other participants</li>
+                    <li>Lifetime access to all training materials</li>
+                    <li>Injury prevention and recovery protocols</li>
+                    <li>Monthly group Q&A sessions</li>
+                </ul>
+                
+                <div class="guarantee">
+                    🛡️ 30-Day Money-Back Guarantee
+                    <br>Not satisfied? Get your full investment back, no questions asked.
+                </div>
+                
+                <a href="#" class="cta-button" onclick="handleSignup()">Join the Camp Now</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2025 Anass Riad Training Camp. All rights reserved.</p>
+        <p>Contact: info@anassriad.com | Follow @anassriad_coach</p>
+        <p>🇲🇦 Based in Morocco | Training champions worldwide</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Animate timeline items on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationDelay = `${entry.target.dataset.delay || 0}s`;
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.timeline-item').forEach((item, index) => {
+            item.dataset.delay = index * 0.2;
+            observer.observe(item);
+        });
+
+        // Handle signup button click
+        function handleSignup() {
+            // Here you would integrate with your payment processor
+            alert('🎉 Ready to start your transformation! \n\nNext Steps:\n1. Contact info@anassriad.com\n2. Schedule your free consultation\n3. Secure your spot in the next camp\n\nLimited spots available - don\'t wait!');
+        }
+
+        // Add counter animation for results
+        function animateCounter(element, target, duration = 2000) {
+            let start = 0;
+            const increment = target / (duration / 16);
+            const timer = setInterval(() => {
+                start += increment;
+                if (start >= target) {
+                    element.textContent = target + (element.textContent.includes('%') ? '%' : '');
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(start) + (element.textContent.includes('%') ? '%' : '');
+                }
+            }, 16);
+        }
+
+        // Animate counters when in view
+        const resultObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const numberElement = entry.target.querySelector('.result-number');
+                    const text = numberElement.textContent;
+                    let target = parseInt(text.replace(/\D/g, ''));
+                    
+                    if (text.includes('-')) {
+                        target = text.split('-')[1];
+                    }
+                    
+                    animateCounter(numberElement, target);
+                    resultObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.result-stat').forEach(stat => {
+            resultObserver.observe(stat);
+        });
+
+        // Touch-friendly interactions
+        if ('ontouchstart' in window) {
+            document.querySelectorAll('.cta-button').forEach(button => {
+                button.addEventListener('touchstart', function() {
+                    this.style.transform = 'scale(0.98)';
+                });
+                button.addEventListener('touchend', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            });
+        }
+    </script>
+</body>
+</html>
